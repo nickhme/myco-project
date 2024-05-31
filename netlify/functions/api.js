@@ -10,16 +10,8 @@ const path = require("path");
 
 const Mushroom = require("../../models/mushroom.js");
 
-
-
 const authRouter = require("../../controllers/auth.js");
 const mushroomRouter = require("../../controllers/mushrooms.js");
-
-mongoose.connect(process.env.MONGODB_URI);
-
-mongoose.connection.on("connected", () => {
-  console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
-});
 
 app.use(express.json());
 
@@ -64,5 +56,10 @@ app.get("*", function (req, res) {
   res.render("error.ejs", { error: "Go back, page not found!" });
 });
 
-module.exports.handler = serverless(app);
+async function start() {
+  await mongoose.connect(process.env.MONGODB_URI);
+}
 
+start()
+
+module.exports.handler = serverless(app)
