@@ -1,11 +1,7 @@
-[build]
-  functions = "netlify/functions"
-  publish = "public"
-
 [functions]
   external_node_modules = ["express", "ejs"]
   node_bundler = "esbuild"
-  included_files = ["views/**"]
+  included_files = ["views/**", "public/**"]
 
 [[redirects]]
   force = true
