@@ -28,6 +28,8 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(morgan("dev"));
 
+app.use(express.static(path.join(__dirname, "public")));
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -41,8 +43,6 @@ app.use(function (req, res, next) {
   res.locals.user = req.session.user;
   next();
 });
-
-app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", async (req, res) => {
   try {
