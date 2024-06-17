@@ -1,6 +1,5 @@
 require("dotenv").config();
 const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const morgan = require("morgan");
@@ -14,6 +13,7 @@ const mushroomRouter = require("./controllers/mushrooms.js");
 
 const port = process.env.PORT || 3000;
 
+const app = express();
 mongoose.connect(process.env.MONGODB_URI);
 
 mongoose.connection.on("connected", () => {
