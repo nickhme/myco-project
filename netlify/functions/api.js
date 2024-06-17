@@ -1,4 +1,5 @@
 const serverless = require("serverless-http");
+const MongoStore = require('connect-mongo');
 require("dotenv").config();
 const express = require("express");
 
@@ -19,7 +20,7 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 
 app.use(express.urlencoded({ extended: false }));
- 
+
 app.use(express.static("public"));
 
 app.use(
@@ -27,10 +28,19 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
+    store: new MongoStore({
+      mongoUrl: 'your_mongodb_url',
+      ttl: 14 * 24 * 60 * 60, // 14 days expiration
+    }),
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // 1 day
+      secure: false, // Set to true if using https
+      httpOnly: true,
+      sameSite: 'lax',
+    },
   })
 );
- 
+
 app.use(function (req, res, next) {
   res.locals.user = req.session.user;
   next();
