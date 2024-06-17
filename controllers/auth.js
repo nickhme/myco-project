@@ -3,7 +3,6 @@ const authRouter = express.Router();
 const bcrypt = require("bcrypt");
 const User = require("../models/user.js");
 const methodOverride = require("method-override");
-const { Console } = require("console");
 
 authRouter.use(methodOverride("_method"));
 
