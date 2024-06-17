@@ -2,6 +2,7 @@
   external_node_modules = ["express", "ejs"]
   node_bundler = "esbuild"
   included_files = ["views/**", "public/**"]
+  publish = "public"
 
 [[redirects]]
   force = true
